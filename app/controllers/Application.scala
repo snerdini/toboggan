@@ -8,7 +8,7 @@ import models.Task
 object Application extends Controller {
 
   val taskForm = Form(
-    "label" -> nonEmptyText
+    "Label:" -> nonEmptyText
   )
 
   def index = Action {

@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String)(content: Html)(implicit header: Html = topNav())
 
 <!DOCTYPE html>
 
@@ -10,6 +10,10 @@
         <script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
     </head>
     <body>
+        <header>
+            @header
+        </header>
+
         @content
     </body>
 </html>
