@@ -24,7 +24,7 @@
     <h2>Add a new task</h2>
 
     @form(routes.Application.newTask()) {
-        @inputText(taskForm("label"))
+        @inputText(taskForm("label"), '_label -> "Task name:")
 
         <input type="submit" value="Create" />
     }
