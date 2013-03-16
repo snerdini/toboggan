@@ -1,4 +1,4 @@
-@(tasks: List[Task], taskForm: Form[String])
+@(tasks: List[Task], taskForm: Form[String])(implicit flash: Flash)
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -23,6 +23,8 @@
     </ul>
 
     <h2>Add a new task</h2>
+
+    <div style="color:red;">@flash.get("wtf")</div>
 
     @form(routes.Application.newTask()) {
         @inputText(taskForm("label"), '_label -> "Task name:")

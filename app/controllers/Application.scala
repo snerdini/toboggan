@@ -15,7 +15,7 @@ object Application extends Controller {
     Redirect(routes.Application.tasks())
   }
 
-  def tasks = Action {
+  def tasks = Action { implicit request =>
     Ok(views.html.index(Task.all(), taskForm))
   }
 
@@ -26,7 +26,7 @@ object Application extends Controller {
         Task.create(label)
         Redirect(routes.Application.tasks)
       }
-    )
+    ).flashing("wtf" -> "Added.")
   }
 
   def deleteTask(id: Long) = Action { implicit request =>
