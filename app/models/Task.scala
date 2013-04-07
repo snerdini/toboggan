@@ -17,6 +17,7 @@ import anorm.~
 case class Task(id: Long, label: String)
 
 object Task {
+  // Enable manual conversion to JSON object for async client requests
   implicit object TaskFormat extends Format[Task] {
     def writes(task: Task):JsValue  = JsObject(List(
       "id" -> JsNumber(task.id),
