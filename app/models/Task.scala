@@ -4,6 +4,8 @@ import anorm._
 import anorm.SqlParser._
 import play.api.Play.current
 import play.api.db.DB
+import play.api.libs.json._
+import anorm.~
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,6 +17,19 @@ import play.api.db.DB
 case class Task(id: Long, label: String)
 
 object Task {
+  implicit object TaskFormat extends Format[Task] {
+    def writes(task: Task):JsValue  = JsObject(List(
+      "id" -> JsNumber(task.id),
+      "label" -> JsString(task.label)
+    ))
+
+    def reads(json: JsValue): JsResult[Task] = JsSuccess {
+      Task(
+        (json \ "id").as[Long],
+        (json \ "label").as[String]
+      )
+    }
+  }
 
   val task = {
     get[Long]("id") ~

@@ -4,6 +4,9 @@ import play.api.mvc._
 import play.api.data._
 import play.api.data.Forms._
 import models.Task
+import play.api.libs.ws.WS
+import play.api.libs.concurrent.Execution.Implicits._
+import play.api.libs.json.Json
 
 object Application extends Controller {
 
@@ -16,7 +19,12 @@ object Application extends Controller {
   }
 
   def tasks = Action { implicit request =>
-    Ok(views.html.index(Task.all(), taskForm))
+    val tasks = Task.all()
+
+    render {
+      case Accepts.Json() => Ok(Json.toJson(tasks))
+      case Accepts.Html() => Ok(views.html.index(tasks, taskForm))
+    }
   }
 
   def newTask = Action { implicit request =>
@@ -32,5 +40,13 @@ object Application extends Controller {
   def deleteTask(id: Long) = Action { implicit request =>
     Task.delete(id)
     Redirect(routes.Application.tasks)
+  }
+
+  def foo = Action {
+    Async {
+      WS.url("http://www.playframework.com").get().map { response =>
+        Ok(response.body).as(HTML)
+      }
+    }
   }
 }
