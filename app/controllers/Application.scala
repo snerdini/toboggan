@@ -21,10 +21,7 @@ object Application extends Controller {
   def tasks = Action { implicit request =>
     val tasks = Task.all()
 
-    render {
-      case Accepts.Json() => Ok(Json.toJson(tasks))
-      case Accepts.Html() => Ok(views.html.index(tasks, taskForm))
-    }
+    Ok(views.html.index(tasks, taskForm))
   }
 
   def newTask = Action { implicit request =>

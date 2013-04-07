@@ -7,7 +7,7 @@
  */
 
 $(function () {
-    $.get('/tasks', function (result) {
-        alert('Success!');
-    });
+    $.get('/tasks/list', function (result) {
+
+    }, 'json');
 });

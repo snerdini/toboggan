@@ -3,8 +3,6 @@
   <component name="FacetManager">
     <facet type="scala" name="Scala">
       <configuration>
-        <option name="compilerLibraryLevel" value="Project" />
-        <option name="compilerLibraryName" value="scala-2.10.0" />
         <option name="compilerOptions" value="-deprecation -unchecked -encoding utf8" />
         <option name="deprecationWarnings" value="true" />
         <option name="fsc" value="true" />
@@ -12,7 +10,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
     <output url="file://$MODULE_DIR$/../target/scala-2.10/classes" />
     <output-test url="file://$MODULE_DIR$/../target/scala-2.10/test-classes" />
     <exclude-output />
