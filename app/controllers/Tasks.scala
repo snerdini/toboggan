@@ -17,14 +17,17 @@ object Tasks extends Controller {
    * @return JSON object representing tasks
    */
   def list(pageSize: Long = 5, pageIndex: Long = 0) = Action { implicit request =>
-    val tasks = Task.all(pageSize, pageIndex)
+    val tasks = Task.load(pageSize, pageIndex)
+    val taskCount = Task.count
 
     render {
-      case Accepts.Json() => Ok(Json.toJson(tasks))
+      case Accepts.Json() => Ok(
+        Json.obj(
+          "totalRows" -> taskCount,
+          "tasks" -> Json.toJson(tasks))
+        )
     }
   }
-
-  def getPager = TODO
 
   /**
    * Action that is called client-side to create a new
@@ -42,7 +45,7 @@ object Tasks extends Controller {
    * Action called asynchronously to delete a task.
    *
    * @param id  the ID of the task to delete
-   * @return
+   * @return response message for the UI layer
    */
   def deleteTask(id: Long) = Action { implicit request =>
     Task.delete(id)

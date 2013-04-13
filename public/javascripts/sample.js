@@ -10,10 +10,12 @@ $(function () {
   var viewModel = function () {
     var self = this;
 
+    self.totalTasks = ko.observable();
     self.newTaskLabel = ko.observable();
     self.tasks = ko.observableArray();
     self.alertMessage = ko.observable();
     self.pageIndex = ko.observable(0);
+    self.pagerLinks = ko.observableArray();
 
     self.addTask = function () {
       $.ajax({
@@ -25,7 +27,7 @@ $(function () {
         dataType: 'json',
         contentType: 'application/json',
         success: function (result) {
-          self.tasks.push(new taskModel({ id: result.id, label: result.label }));
+          self.loadTasks();
           self.newTaskLabel('');
           self.alertMessage('Task was added successfully.');
         }
@@ -37,6 +39,7 @@ $(function () {
         $.post('/tasks/' + task.id() + '/delete', function () {
           self.tasks.remove(task);
           self.alertMessage('Task was deleted successfully.');
+          self.totalTasks(self.totalTasks() - 1);
         });
       }
     };
@@ -45,7 +48,15 @@ $(function () {
         var pageSize = 5, pageIndex = self.pageIndex();
 
         $.get('/tasks/list/' + pageSize + '/' + pageIndex, function (result) {
-            var tasks = $.map(result, function (task) {
+            self.totalTasks(result.totalRows);
+            var pagerCount = result.totalRows / pageSize;
+            self.pagerLinks([]);
+
+            for (var i = 0; i < pagerCount; i++) {
+                self.pagerLinks.push({});
+            }
+
+            var tasks = $.map(result.tasks, function (task, index) {
                 return new taskModel(task);
             });
 

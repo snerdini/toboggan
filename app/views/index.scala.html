@@ -10,17 +10,13 @@
 @body = {
     <div class="row-fluid">
         <div class="span12">
-            <h1 class="title"><span data-bind="text: tasks().length"></span> task(s)</h1>
+            <h1 class="title"><span data-bind="text: totalTasks"></span> task(s)</h1>
 
             <div class="pagination">
-                <ul>
-                    <li><a href="#">Prev</a></li>
-                    <li data-bind="css: { active: pageIndex() == 0 }"><a href="javascript: void(0);" data-bind="click: setPage.bind($data, 0)">1</a></li>
-                    <li data-bind="css: { active: pageIndex() == 1 }"><a href="javascript: void(0);" data-bind="click: setPage.bind($data, 1)">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">Next</a></li>
+                <ul data-bind="foreach: pagerLinks">
+                    <li data-bind="css: { active: $root.pageIndex() == $index() }">
+                        <a href="javascript: void(0);" data-bind="text: $index() + 1, click: $root.setPage.bind($data, $index())"></a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -37,14 +33,17 @@
 
     <div class="row-fluid">
         <div class="span12">
-            <table class="table table-striped">
+            <table class="table table-bordered table-striped">
                 <tbody data-bind="foreach: tasks">
                     <tr>
-                        <td>
+                        <td class="span1" style="text-align: center;">
+                            <input type="checkbox" />
+                        </td>
+                        <td class="span10">
                             <span data-bind="text: label"></span>
                         </td>
-                        <td>
-                            <a class="btn btn-mini" data-bind="click: $root.deleteTask"><i class="icon-remove"></i> Delete</a>
+                        <td class="span1">
+                            <a class="btn btn-mini pull-right" data-bind="click: $root.deleteTask"><i class="icon-remove"></i> Delete</a>
                         </td>
                     </tr>
                 </tbody>
