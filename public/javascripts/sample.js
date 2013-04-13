@@ -1,10 +1,3 @@
-/**
- * Created with IntelliJ IDEA.
- * User: steve
- * Date: 4/7/13
- * Time: 11:29 AM
- * To change this template use File | Settings | File Templates.
- */
 
 $(function () {
   var taskModel = function (task) {
@@ -20,6 +13,7 @@ $(function () {
     self.newTaskLabel = ko.observable();
     self.tasks = ko.observableArray();
     self.alertMessage = ko.observable();
+    self.pageIndex = ko.observable(0);
 
     self.addTask = function () {
       $.ajax({
@@ -46,16 +40,27 @@ $(function () {
         });
       }
     };
+
+    self.loadTasks = function () {
+        var pageSize = 5, pageIndex = self.pageIndex();
+
+        $.get('/tasks/list/' + pageSize + '/' + pageIndex, function (result) {
+            var tasks = $.map(result, function (task) {
+                return new taskModel(task);
+            });
+
+            model.tasks(tasks);
+        });
+    };
+
+    self.setPage = function (index) {
+        self.pageIndex(index);
+        self.loadTasks();
+    };
   };
 
   var model = new viewModel();
   ko.applyBindings(model);
 
-  $.get('/tasks/list', function (result) {
-    var tasks = $.map(result, function (task) {
-      return new taskModel(task);
-    });
-
-    model.tasks(tasks);
-  });
+  model.loadTasks();
 });

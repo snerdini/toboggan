@@ -7,17 +7,13 @@ import play.api.db.DB
 import play.api.libs.json._
 import anorm.~
 
-/**
- * Created with IntelliJ IDEA.
- * User: steve
- * Date: 12/16/12
- * Time: 12:18 PM
- */
-
 case class Task(id: Long, label: String)
 
 object Task {
-  // Enable manual conversion to JSON object for async client requests
+
+  /**
+   * Enable manual conversion to JSON object for async client requests
+   */
   implicit object TaskFormat extends Format[Task] {
     def writes(task: Task):JsValue  = JsObject(List(
       "id" -> JsNumber(task.id),
@@ -39,8 +35,15 @@ object Task {
     }
   }
 
-  def all(): List[Task] = DB.withConnection { implicit c =>
-    SQL("select * from task").as(task *)
+  def all(pageSize: Long = 5, pageIndex: Long = 0): List[Task] = DB.withConnection { implicit c =>
+    val offset = pageSize * pageIndex
+    SQL("select * from task limit {pageSize} offset {offset}")
+      .on('pageSize -> pageSize, 'offset -> offset)
+      .as(task *)
+  }
+
+  def count = DB.withConnection { implicit c =>
+    SQL("select count(*) from task")
   }
 
   def create(label: String) = DB.withConnection { implicit c =>

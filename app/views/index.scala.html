@@ -15,8 +15,8 @@
             <div class="pagination">
                 <ul>
                     <li><a href="#">Prev</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
+                    <li data-bind="css: { active: pageIndex() == 0 }"><a href="javascript: void(0);" data-bind="click: setPage.bind($data, 0)">1</a></li>
+                    <li data-bind="css: { active: pageIndex() == 1 }"><a href="javascript: void(0);" data-bind="click: setPage.bind($data, 1)">2</a></li>
                     <li><a href="#">3</a></li>
                     <li><a href="#">4</a></li>
                     <li><a href="#">5</a></li>
@@ -28,7 +28,7 @@
 
     <div class="row-fluid">
         <div class="span12">
-            <div class="alert alert-success" data-bind="visible: alertMessage()">
+            <div class="alert alert-success fade in" data-bind="visible: alertMessage()">
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <span data-bind="text: alertMessage">This is an alert.</span>
             </div>

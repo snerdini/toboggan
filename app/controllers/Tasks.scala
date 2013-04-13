@@ -16,14 +16,15 @@ object Tasks extends Controller {
    *
    * @return JSON object representing tasks
    */
-  def list = Action { implicit request =>
-    val tasks = Task.all()
+  def list(pageSize: Long = 5, pageIndex: Long = 0) = Action { implicit request =>
+    val tasks = Task.all(pageSize, pageIndex)
 
     render {
       case Accepts.Json() => Ok(Json.toJson(tasks))
-      case Accepts.Html() => Ok("Dis be HTML.")
     }
   }
+
+  def getPager = TODO
 
   /**
    * Action that is called client-side to create a new
