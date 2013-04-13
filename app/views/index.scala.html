@@ -1,4 +1,4 @@
-@(tasks: List[Task], taskForm: Form[String])(implicit flash: Flash)
+@(taskForm: Form[String])(implicit flash: Flash)
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -8,29 +8,67 @@
 }
 
 @body = {
-    <h1>@tasks.size task(s)</h1>
+    <div class="row-fluid">
+        <div class="span12">
+            <h1 class="title"><span data-bind="text: tasks().length"></span> task(s)</h1>
 
-    <ul>
-    @tasks.map { task =>
-        <li>
-            @task.label
+            <div class="pagination">
+                <ul>
+                    <li><a href="#">Prev</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
-            @form(routes.Application.deleteTask(task.id)) {
-                <input type="submit" value="Delete" />
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="alert alert-success" data-bind="visible: alertMessage()">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <span data-bind="text: alertMessage">This is an alert.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <table class="table table-striped">
+                <tbody data-bind="foreach: tasks">
+                    <tr>
+                        <td>
+                            <span data-bind="text: label"></span>
+                        </td>
+                        <td>
+                            <a class="btn btn-mini" data-bind="click: $root.deleteTask"><i class="icon-remove"></i> Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <h2>Add a new task</h2>
+
+            <div style="color:red;">@flash.get("wtf")</div>
+
+            @form(routes.Application.tasks()) {
+
+                @helper.input(taskForm("label")) { (id, name, value, args) =>
+                    <input type="text" name="@name" data-bind="value: newTaskLabel" />
+                }
+                <a href="#" class="btn btn-primary" data-bind="click: addTask">
+                    <i class="icon-plus icon-white"></i> Create
+                </a>
             }
-        </li>
-    }
-    </ul>
-
-    <h2>Add a new task</h2>
-
-    <div style="color:red;">@flash.get("wtf")</div>
-
-    @form(routes.Application.newTask()) {
-        @inputText(taskForm("label"), '_label -> "Task name:")
-
-        <input type="submit" value="Create" />
-    }
+        </div>
+    </div>
 }
 
 @main("Todo list")(body)

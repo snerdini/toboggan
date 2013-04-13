@@ -6,12 +6,14 @@
 GET     /                           controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
+GET     /assets/img/glyphicons-halflings-white.png      controllers.Assets.at(path="/public", file="images/glyphicons-halflings-white.png")
+GET     /assets/img/glyphicons-halflings.png            controllers.Assets.at(path="/public", file="images/glyphicons-halflings.png")
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # Tasks
 GET     /tasks                      controllers.Application.tasks
-POST    /tasks                      controllers.Application.newTask
-POST    /tasks/:id/delete           controllers.Application.deleteTask(id: Long)
+POST    /tasks                      controllers.Tasks.newTask
+POST    /tasks/:id/delete           controllers.Tasks.deleteTask(id: Long)
 GET     /foo                        controllers.Application.foo
 
 GET     /tasks/list                 controllers.Tasks.list
