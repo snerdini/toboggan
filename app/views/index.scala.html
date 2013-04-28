@@ -62,9 +62,7 @@
                 @helper.input(taskForm("label")) { (id, name, value, args) =>
                     <input type="text" name="@name" data-bind="value: newTaskLabel" />
                 }
-                <a href="#" class="btn btn-primary" data-bind="click: addTask">
-                    <i class="icon-plus icon-white"></i> Create
-                </a>
+                <input type="submit" class="btn btn-primary" data-bind="click: addTask" value="Create Task" />
             }
         </div>
     </div>
