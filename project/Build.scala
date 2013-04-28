@@ -13,7 +13,17 @@ object ApplicationBuild extends Build {
       "com.amazonaws" % "aws-java-sdk" % "1.3.11"
     )
 
-    val main = play.Project(appName, appVersion, appDependencies).settings(
-      // Add your own project settings here      
-    )
+//    val mainDeps = Seq()
+//
+//    lazy val admin = play.Project(
+//      appName + "-admin", appVersion, appDependencies, path = file("modules/admin")
+//    )
+
+//    lazy val main = play.Project(appName, appVersion, mainDeps).settings(
+//      // Add your own project settings here
+//    ).dependsOn(admin).aggregate(admin)
+
+      val main = play.Project(appName, appVersion, appDependencies).settings(
+        // Add your own project settings here
+      )
 }

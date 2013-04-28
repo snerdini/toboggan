@@ -1,0 +1,15 @@
+@(loginForm: Form[(String, String)])
+
+@import helper._
+
+@body = {
+    <h1>This is the login page.</h1>
+
+    @form(routes.Admin.authenticate()) {
+        @helper.inputText(loginForm("email"))
+        @helper.inputPassword(loginForm("password"))
+        <input type="submit" />
+    }
+}
+
+@template("Login")(body)
