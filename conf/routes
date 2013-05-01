@@ -3,7 +3,7 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
+GET     /                                               controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/img/glyphicons-halflings-white.png      controllers.Assets.at(path="/public", file="images/glyphicons-halflings-white.png")
@@ -17,3 +17,9 @@ POST    /tasks/:id/delete                               controllers.Tasks.delete
 GET     /foo                                            controllers.Application.foo
 
 GET     /tasks/list/:pageSize/:pageIndex                controllers.Tasks.list(pageSize: Long, pageIndex: Long)
+
+
+# Admin routes
+GET     /admin                                          controllers.Admin.index
+GET     /admin/login                                    controllers.Admin.login
+POST    /admin/authenticate                             controllers.Admin.authenticate
