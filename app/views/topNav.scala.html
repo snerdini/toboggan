@@ -1,7 +1,18 @@
-<div>
-    <ul>
+@()(implicit request: RequestHeader)
+
+<div class="row-fluid">
+    <ul class="pull-left">
         <li><a href="@routes.Application.tasks">Tasks</a></li>
         <li><a href="@routes.Application.foo">Remote</a></li>
         <li><a href="#">Link 3</a></li>
     </ul>
+
+    <div class="login-status pull-right">
+        @if(request.session.get(Security.username).isDefined) {
+            Welcome, @request.session.get(Security.username)!
+            <a href="@routes.Admin.logout" class="btn btn-mini">Sign out</a>
+        } else {
+            <a href="@routes.Admin.login" class="btn btn-mini">Sign in</a>
+        }
+    </div>
 </div>

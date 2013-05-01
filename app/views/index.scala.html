@@ -1,11 +1,7 @@
-@(taskForm: Form[String])(implicit flash: Flash)
+@(taskForm: Form[String])(implicit flash: Flash, request: RequestHeader)
 
 @import helper._
 @import helper.twitterBootstrap._
-
-@header = {
-    <div>Or <em>THIS</em> nav</div>
-}
 
 @body = {
     <div class="row-fluid">
@@ -68,4 +64,4 @@
     </div>
 }
 
-@main("Todo list")(body)
+@main("Todo list")(body)(topNav())

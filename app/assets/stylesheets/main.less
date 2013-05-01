@@ -1,13 +1,16 @@
-@import url(http://fonts.googleapis.com/css?family=Donegal+One);
+@import url(//fonts.googleapis.com/css?family=Open+Sans:700italic,400);
 
 @accentColor: #6495ed;
+@fancyFont: "Open Sans", serif;
 
 body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 100%;
 
   h1, h2 {
-    font-family: "Donegal One", serif;
+    font-family: @fancyFont;
+    font-weight: 700;
+    font-style: italic;
     color: @accentColor;
   }
 
@@ -28,24 +31,33 @@ ul {
 }
 
 header {
-  ul {
+  & > div {
     padding: 8px 0;
     background: #f5f5f5;
     border-top: 1px solid #cccccc;
     border-bottom: 1px solid #cccccc;
-    list-style: none;
-    margin: 0;
-    li {
-      display: inline-block;
-      padding: 0 15px;
-      border-right: 1px solid #cccccc;
-      a {
-        text-decoration: none;
-        display: block;
-        font-family: "Donegal One", serif;
-        color: @accentColor;
+
+    ul {
+      list-style: none;
+      margin: 0;
+
+      li {
+        display: inline-block;
+        padding: 0 15px;
+        border-right: 1px solid #cccccc;
+
+          a {
+          text-decoration: none;
+          display: block;
+          font-family: @fancyFont;
+          color: @accentColor;
+        }
       }
     }
+  }
+
+  div.login-status {
+    margin-right: 8px;
   }
 }
 

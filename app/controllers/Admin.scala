@@ -41,6 +41,12 @@ object Admin extends Controller with Secured {
     )
   }
 
+  def logout = Action {
+    Redirect(routes.Admin.login).withNewSession.flashing(
+      "success" -> "You are now logged out."
+    )
+  }
+
   def index = withAuth { username => implicit request =>
     Ok(username)
   }

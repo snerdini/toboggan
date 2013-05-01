@@ -23,3 +23,4 @@ GET     /tasks/list/:pageSize/:pageIndex                controllers.Tasks.list(p
 GET     /admin                                          controllers.Admin.index
 GET     /admin/login                                    controllers.Admin.login
 POST    /admin/authenticate                             controllers.Admin.authenticate
+GET     /logout                                         controllers.Admin.logout

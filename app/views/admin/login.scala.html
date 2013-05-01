@@ -6,7 +6,7 @@
     <h1>This is the login page.</h1>
 
     @form(routes.Admin.authenticate()) {
-        @helper.inputText(loginForm("email"))
+        @helper.inputText(loginForm("email"), '_showErrors -> true)
         @helper.inputPassword(loginForm("password"))
         <input type="submit" />
     }
